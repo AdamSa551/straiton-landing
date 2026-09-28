@@ -9,7 +9,7 @@ import { Icon } from '@/components/ui/Icon'
 import { Input } from '@/components/ui/Input'
 import { Select } from '@/components/ui/Select'
 import { contact, landing, type Currency, type PaymentType } from '@/content/landing'
-import { AMOUNT_FIELD_ID } from '@/lib/assessment'
+import { AMOUNT_FIELD_ID, CONFIRMATION_ID } from '@/lib/assessment'
 import {
   fieldOrder,
   firstFailing,
@@ -108,6 +108,9 @@ export default function AssessmentForm(): JSX.Element {
 
   const confirmationRef = useRef<HTMLDivElement | null>(null)
   const delayTimer = useRef<number | null>(null)
+  /* Distinguishes the transition back out of the confirmation from the initial
+     mount, so restarting can move focus while a first render does not. */
+  const restarting = useRef(false)
 
   /**
    * Focus moves to the confirmation once it has actually mounted.
@@ -119,7 +122,20 @@ export default function AssessmentForm(): JSX.Element {
    * confirmation and not on the transition back out.
    */
   useEffect(() => {
-    if (submitted) confirmationRef.current?.focus()
+    if (submitted) {
+      confirmationRef.current?.focus()
+      return
+    }
+    /* Restarting unmounts the button that was holding focus. Without this,
+       focus falls to <body> and a keyboard user is thrown back to the top of
+       the document, having just asked to fill the form again. Moving it to the
+       amount field puts them where they were trying to go. It has to run from
+       the effect rather than from restart(): the input has not remounted yet
+       while restart() is still executing. */
+    if (restarting.current) {
+      restarting.current = false
+      document.getElementById(AMOUNT_FIELD_ID)?.focus({ preventScroll: true })
+    }
   }, [submitted])
 
   /* The pending delay is cleared on unmount, so a resolve cannot land after
@@ -193,6 +209,7 @@ export default function AssessmentForm(): JSX.Element {
   }
 
   function restart(): void {
+    restarting.current = true
     setSubmitted(null)
     setAmount('')
     setCurrency('')
@@ -214,7 +231,12 @@ export default function AssessmentForm(): JSX.Element {
            in the tab order. No outline is removed: a programmatic focus on a
            tabindex -1 container does not match :focus-visible, so the global
            backstop ring does not draw a box round the whole confirmation. */
-        <div ref={confirmationRef} tabIndex={-1} className="flex flex-col gap-5">
+        <div
+          ref={confirmationRef}
+          id={CONFIRMATION_ID}
+          tabIndex={-1}
+          className="flex flex-col gap-5"
+        >
           {/* The badge is inline-flex, and a flex column would stretch it to the
               full panel width, so it gets a plain block wrapper of its own. */}
           <div>

@@ -127,8 +127,9 @@ const FEATURE_TONE: Record<CardTone, FeatureToneStyles> = {
 
 /**
  * S06 payment readiness. The title is an `h3`: these two are the only `h3`s
- * on the page, and the verified heading order (H1, H2x4, H3x2, H2x6) depends
- * on them, so a card title elsewhere must not become a heading.
+ * on the page. The rendered order is one `h1`, fourteen `h2`s and these two
+ * `h3`s, with no level skipped, so a card title elsewhere must not become a
+ * heading or it would sit at the wrong level under its section's `h2`.
  */
 export function FeatureCard({
   title,

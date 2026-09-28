@@ -22,6 +22,16 @@ import { sectionIds } from '@/content/landing'
  *  review board mounted the page four times. */
 export const AMOUNT_FIELD_ID = 'assessment-amount'
 
+/**
+ * The confirmation replaces the form in place, so once a reader has submitted,
+ * `AMOUNT_FIELD_ID` is no longer in the document. Without a fallback the CTAs
+ * would still scroll but their focus call would silently do nothing, which is
+ * the same invisible no-op the handoff warns about, just in a state nobody
+ * tested. The confirmation wrapper already takes `tabIndex={-1}` for its own
+ * post-submit focus, so it is the correct thing to land on.
+ */
+export const CONFIRMATION_ID = 'assessment-confirmation'
+
 function prefersReducedMotion(): boolean {
   return (
     typeof window !== 'undefined' &&
@@ -43,7 +53,8 @@ export function goToAssessment(): void {
   const delay = prefersReducedMotion() ? 0 : 520
 
   window.setTimeout(() => {
-    const field = document.getElementById(AMOUNT_FIELD_ID)
-    if (field instanceof HTMLElement) field.focus({ preventScroll: true })
+    const target =
+      document.getElementById(AMOUNT_FIELD_ID) ?? document.getElementById(CONFIRMATION_ID)
+    if (target instanceof HTMLElement) target.focus({ preventScroll: true })
   }, delay)
 }

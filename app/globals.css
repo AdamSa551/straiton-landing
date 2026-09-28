@@ -35,7 +35,7 @@
   --brand-500: #12a98a; /* accent fill, icon tint, primary hover on dark */
   --brand-600-rgb: 11 127 104; /* for the focus ring alpha composite */
   --brand-400: #2ed3a7; /* primary fill on dark, eyebrow on dark   8.1:1 w/ ink-900 */
-  --brand-100: #dff3ed; /* tinted table row, soft chip fill       13.9:1 w/ ink-900 */
+  --brand-100: #dff3ed; /* tinted table row, soft chip fill       13.4:1 w/ ink-900 */
   --accent-line: #35d07a; /* decorative footer edge ONLY. Never text, never state */
 
   /* Neutral. */
@@ -226,7 +226,13 @@
      would otherwise be the one anchor the offset missed. */
   section[id],
   footer[id],
-  div[id] {
+  div[id],
+  /* Form controls are anchor targets too: the hero's mobile CTA points at the
+     amount input so the browser focuses it on arrival, which needs the same
+     offset or the field lands under the sticky nav. */
+  input[id],
+  select[id],
+  textarea[id] {
     scroll-margin-top: var(--scroll-offset);
   }
 
@@ -295,14 +301,18 @@
     padding-inline: var(--container-pad);
   }
 
-  /* Submit button spinner. 18px circle, track at 35% of the label colour. */
+  /* Submit button spinner. 18px circle, 2px border, a full track at 35% of the
+     label colour with the head at full strength, which is what reads as
+     rotation. It previously drew a three-quarter arc at a flat 90% and had no
+     track at all, so the comment described a treatment the code did not
+     implement. `currentColor` means it inherits the label colour on every
+     variant and tone without a per-variant override. */
   .spinner {
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    border: 2px solid currentColor;
-    border-top-color: transparent;
-    opacity: 0.9;
+    border: 2px solid color-mix(in srgb, currentColor 35%, transparent);
+    border-top-color: currentColor;
     animation: spin 0.8s linear infinite;
   }
 

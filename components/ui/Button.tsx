@@ -185,7 +185,14 @@ export function Button(props: ButtonProps): JSX.Element {
    */
   const content = (
     <>
-      <span className={loading ? 'opacity-0' : undefined}>{children}</span>
+      {/* `leading-snug` on the LABEL, while the button box keeps `leading-none`.
+          The box needs a line-height of 1 so a single-line label centres
+          exactly within the fixed 36/44/52px heights. But a label that wraps
+          at a narrow width then has zero leading, and its line boxes overlap
+          by about 3px: at 320px that hit the form submit and all four
+          assessment CTAs. Setting it here fixes every call site at once,
+          rather than at the two that had patched it locally. */}
+      <span className={`leading-snug ${loading ? 'opacity-0' : ''}`}>{children}</span>
       {withArrow ? (
         <span aria-hidden="true" className={loading ? 'opacity-0' : undefined}>
           →

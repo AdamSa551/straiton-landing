@@ -44,7 +44,9 @@ Requires Node 18.17 or newer. No environment variables, no external services, no
 
 ## 2. The token system
 
-Every colour, type role, spacing step, radius, shadow and motion value is a CSS custom property declared once in [`app/globals.css`](app/globals.css). [`tailwind.config.ts`](tailwind.config.ts) maps those properties onto Tailwind class names. Nothing in the config is a literal value; every entry resolves to a `var(--token)`.
+Every colour, type role, radius, shadow and motion value is a CSS custom property declared once in [`app/globals.css`](app/globals.css). [`tailwind.config.ts`](tailwind.config.ts) maps those properties onto Tailwind class names, so no component names a colour or a type size directly.
+
+Three things in the config are literal rather than token references, deliberately: the spacing scale, the breakpoints and a few named `min-height` / `min-width` values. Breakpoints cannot be custom properties at all, since those do not work inside media queries, and the spacing scale is literal because restricting it is the point, as below.
 
 So a component writes `bg-brand-600`, never `bg-[#0B7F68]`.
 
@@ -76,14 +78,16 @@ Sizes interpolate with `clamp()` between the mobile and desktop anchors rather t
 
 Declared in `tailwind.config.ts`, not in `:root`, because CSS custom properties do not work inside media queries.
 
-| Prefix | Width | Used for |
+| Prefix | Width | What actually uses it |
 |---|---|---|
-| `sm` | 480px | footer columns to one, form selects stack |
-| `table` | 620px | SpecTable switches two-column to stacked |
-| `md` | 768px | footer columns to two |
-| `lg` | 1024px | utility bar, desktop nav, two-column hero |
-| `process` | 1100px | four-step process goes 4-across with arrows |
-| `xl` | 1280px | |
+| `sm` | 480px | the two form selects go side by side; the footer brand block spans two tracks |
+| `table` | 620px | SpecTable switches from stacked blocks to two columns |
+| `md` | 768px | one rule: the FAQ answer's inline-end padding, so it clears the chevron |
+| `lg` | 1024px | utility bar and desktop nav appear, hamburger hides, hero goes two-column and its primary CTA hides |
+| `process` | 1100px | the four-step process goes 4-across with connector arrows |
+| `xl` | 1280px | configured, currently unused |
+
+The footer's column collapse is **not** driven by a breakpoint. It uses `repeat(auto-fit, minmax(min(100%, 180px), 1fr))`, so the column count falls out of the available width on its own. Same for the fact, feature and step grids. Only the six behaviours above are breakpoint-switched.
 
 All layout switching is CSS. No component reads `window.innerWidth`; the guard rejects it.
 

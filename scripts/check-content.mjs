@@ -158,9 +158,26 @@ const FORBIDDEN = [
   'blockchain',
 ]
 
-// Only user-facing copy is checked. Code comments explaining WHY a claim is
-// avoided are legitimate and must not trip the guard.
-const copyStrings = [...content.matchAll(/(['"`])((?:(?!\1)[^\\]|\\.)*)\1/g)].map((m) => m[2])
+/**
+ * Phrases that contain a forbidden word but are approved copy, because the
+ * word appears inside a negation. The regulatory placeholder has to name the
+ * thing it is disclaiming.
+ */
+const CLAIM_ALLOWLIST = ['or guaranteed execution from this prototype']
+
+/**
+ * Comments are stripped FIRST. Reading the raw file here was a real bug: an
+ * apostrophe inside a block comment closes a quote the regex thinks it opened,
+ * which desynchronises every pair after it and silently left the last ~28% of
+ * this file unscanned. A guard that quietly stops checking is worse than no
+ * guard, because the passing run is taken as evidence.
+ *
+ * Verified after the fix by planting a violation past the old cut-off and
+ * confirming the guard fails on it.
+ */
+const copyStrings = [...stripComments(content).matchAll(/(['"`])((?:(?!\1)[^\\]|\\.)*)\1/g)]
+  .map((m) => m[2])
+  .filter((s) => !CLAIM_ALLOWLIST.some((ok) => s.includes(ok)))
 
 for (const needle of FORBIDDEN) {
   for (const str of copyStrings) {

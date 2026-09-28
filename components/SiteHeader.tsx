@@ -29,7 +29,7 @@ const SCROLL_THRESHOLD = 48
    spelled out as one-off geometry, the same way Button spells out its 28px
    inline padding. */
 const LOGO =
-  'inline-flex min-h-touch items-center gap-2 rounded-sm py-2 font-display text-[21px] font-semibold leading-none tracking-[-0.01em] text-text-primary focus-visible:shadow-focus'
+  'inline-flex whitespace-nowrap min-h-touch items-center gap-2 rounded-sm py-2 font-display text-[21px] font-semibold leading-none tracking-[-0.01em] text-text-primary focus-visible:shadow-focus'
 
 /* Inactive links carry the same 2px bottom border as the active one, in
    transparent, so hover and the active state paint into space that is already

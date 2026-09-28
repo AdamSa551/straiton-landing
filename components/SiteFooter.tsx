@@ -108,7 +108,7 @@ export default function SiteFooter(): JSX.Element {
                   The 21px lockup geometry is the header's, so the mark reads as
                   the same object at both ends of the page. The dot is
                   decoration and carries no meaning, so it is aria-hidden. */}
-              <p className="inline-flex items-center gap-2 font-display text-[21px] font-semibold leading-none tracking-[-0.01em] text-on-dark-primary">
+              <p className="inline-flex whitespace-nowrap items-center gap-2 font-display text-[21px] font-semibold leading-none tracking-[-0.01em] text-on-dark-primary">
                 {meta.brandName}
                 <span aria-hidden="true" className="h-[6px] w-[6px] rounded-pill bg-brand-500" />
               </p>

@@ -242,7 +242,7 @@ export function MobileMenu({
         <a
           href={`#${sectionIds.hero}`}
           onClick={onClose}
-          className="inline-flex min-h-touch items-center gap-2 rounded-sm py-2 font-display text-[21px] font-semibold leading-none tracking-[-0.01em] text-text-primary focus-visible:shadow-focus"
+          className="inline-flex whitespace-nowrap min-h-touch items-center gap-2 rounded-sm py-2 font-display text-[21px] font-semibold leading-none tracking-[-0.01em] text-text-primary focus-visible:shadow-focus"
         >
           {landing.meta.brandName}
           <span aria-hidden="true" className="h-[6px] w-[6px] rounded-pill bg-brand-500" />

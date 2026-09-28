@@ -2,7 +2,7 @@
 
 **Live preview:** https://straiton-landing-seven.vercel.app
 **Source:** https://github.com/AdamSa551/straiton-landing
-**Approximate time spent:** Approximately 12 hours, across design system, copy and narrative, build, and accessibility work.
+**Time spent:** Approximately 12 hours, across design system, copy and narrative, build, and accessibility work.
 
 Route A, Vercel preview. A deployed Next.js page plus editable source, rather than a Figma file. I design and ship the front end, so the working build is the deliverable and the design system sits inside it as code.
 

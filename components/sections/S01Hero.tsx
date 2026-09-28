@@ -1,4 +1,5 @@
 import AssessmentForm from '@/components/AssessmentForm'
+import { AMOUNT_FIELD_ID } from '@/lib/assessment'
 import { Button } from '@/components/ui/Button'
 import { Panel } from '@/components/ui/Card'
 import { StatusBadge } from '@/components/ui/Chip'
@@ -67,12 +68,19 @@ export default function S01Hero(): JSX.Element {
           <div className="flex flex-wrap items-center gap-3">
             {/* Hidden from 1024px up, where the form panel sits beside the
                 proposition and is itself the primary action. Two primaries in
-                one viewport is what that rule exists to prevent. */}
+                one viewport is what that rule exists to prevent.
+
+                The target is the amount input, not the panel. A browser moves
+                focus to a fragment target when that target is focusable, so
+                this lands the reader in the first field exactly as the other
+                three assessment CTAs do, without a click handler and so
+                without pulling this server component into the client bundle.
+                The input carries its own scroll-margin in globals.css. */}
             <Button
               variant="primary"
               size="lg"
               withArrow
-              href={`#${FORM_ANCHOR}`}
+              href={`#${AMOUNT_FIELD_ID}`}
               className="lg:hidden"
             >
               {landing.hero.primaryCta}
