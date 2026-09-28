@@ -54,6 +54,7 @@ The result: **zero axe violations** across WCAG 2.0 A and AA, 2.1 A and AA, and 
 
 ## Assumptions
 
+- **Nothing leaves the browser.** No backend, no authentication, no database, no payment processing. The assessment form runs real validation, waits a simulated delay, then resolves to a local confirmation state carrying a `DEMO ONLY` badge. No network request is made.
 - **Contact details are placeholders.** The email uses the reserved `.example` TLD so it cannot resolve. The support section says so on the page.
 - **The regulatory block is a neutral placeholder.** No licensing or coverage should be inferred from it.
 - **No guide pages exist**, so the four resource rows point at the sections of this page that answer them, with a note telling the reader that is what will happen. Four dead links would have been worse.
@@ -70,17 +71,3 @@ The result: **zero axe violations** across WCAG 2.0 A and AA, 2.1 A and AA, and 
 - **Unit tests on the validation rules.** Pure functions with exact required messages, so the cheapest thing on the page to test and the easiest to break by editing a string.
 - **A components board route**, rebuilt from the real primitives, so every variant and state is reviewable without hunting through the page and cannot drift from the code.
 - Real guide pages, and scroll reveal, which is specified as optional and not implemented.
-
----
-
-## Notes on the build
-
-No backend, no authentication, no database, no payment processing. The assessment form runs real validation, waits a simulated delay, then resolves to a local confirmation state carrying a `DEMO ONLY` badge. No network request is made and nothing leaves the browser.
-
-```bash
-npm install && npm run dev
-```
-
-`npm run check` runs the content and token guards. `npm run check:classes` confirms every Tailwind class in the source actually emits CSS, which matters because Tailwind fails silently.
-
-The README covers the token system, the component map, what is demo only, and known gaps.

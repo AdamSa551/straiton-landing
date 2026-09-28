@@ -354,6 +354,10 @@ li.next::before{ background:var(--surface-muted); border-color:var(--border-stro
     </div>
 
     <ul>
+      <li><strong>Nothing leaves the browser.</strong> No backend, no authentication, no
+        database, no payment processing. The assessment form runs real validation, waits a
+        simulated delay, then resolves to a local confirmation state carrying a
+        <strong>DEMO ONLY</strong> badge. No network request is made.</li>
       <li><strong>Contact details are placeholders.</strong> The email uses the reserved
         <code>.example</code> TLD so it cannot resolve. The support section says so on the page.</li>
       <li><strong>The regulatory block is a neutral placeholder.</strong> No licensing or
@@ -405,27 +409,7 @@ li.next::before{ background:var(--surface-muted); border-color:var(--border-stro
 
 <!-- ============================================================ closing -->
 
-<div class="sheet">
-  <section>
-    <div class="sec-head">
-      <span class="sec-num">06</span>
-      <h2>Notes on the build</h2>
-    </div>
-    <p>
-      No backend, no authentication, no database, no payment processing. The assessment form
-      runs real validation, waits a simulated delay, then resolves to a local confirmation
-      state carrying a <strong>DEMO ONLY</strong> badge. No network request is made and
-      nothing leaves the browser.
-    </p>
-    <div class="cmd">npm install &amp;&amp; npm run dev</div>
-    <p>
-      <strong>npm run check</strong> runs the content and token guards.
-      <strong>npm run check:classes</strong> confirms every Tailwind class emits CSS, which
-      matters because Tailwind fails silently. The README covers the token system, the
-      component map and the known gaps.
-    </p>
-  </section>
-</div>
+
 
 </body>
 </html>
