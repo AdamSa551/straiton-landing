@@ -78,6 +78,13 @@ export function Select({
           className={[
             fieldChrome(hasError ? 'error' : hasSuccess ? 'success' : 'default'),
             'appearance-none cursor-pointer',
+            // Safety net for a long option in a narrow track. A select clips
+            // its value by default, which cuts the selected text mid word and
+            // leaves the reader unsure what they chose. An ellipsis at least
+            // signals that the value continues. Callers should still size the
+            // track for their longest option; this only stops the degradation
+            // being silent.
+            'truncate',
             // Muting the unchosen value keeps it from reading as a real
             // selection. It is reinforcement only: the visible label above and
             // the disabled placeholder option are what state the field is empty,

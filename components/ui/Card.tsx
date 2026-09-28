@@ -143,7 +143,11 @@ export function FeatureCard({
 
   return (
     <div className={`${CARD_SHELL} ${shell} flex h-full flex-col gap-5`}>
-      <h3 className={`text-h3 ${t.title}`}>{title}</h3>
+      {/* `font-display` is not decoration here. The design system sets the
+          display face at 28px and above, and `text-h3` tops out at 28px, so
+          without it these two card titles were the only headings at that size
+          on the page set in the body face. */}
+      <h3 className={`text-h3 font-display ${t.title}`}>{title}</h3>
       <ul className="flex flex-col gap-3">
         {items.map((item) => (
           <li key={item} className={`flex items-start gap-3 text-body ${t.item}`}>

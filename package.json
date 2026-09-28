@@ -10,7 +10,7 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "check": "node scripts/check-content.mjs",
-    "verify": "npm run typecheck && npm run check && npm run check:classes",
+    "verify": "npm run typecheck && npm run check && npm run check:classes && npm run build",
     "check:classes": "node scripts/check-classes.mjs"
   },
   "dependencies": {

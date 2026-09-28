@@ -287,7 +287,15 @@ export default function AssessmentForm(): JSX.Element {
             autoComplete="off"
           />
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {/* The two selects are side by side, but NOT on equal tracks. Their
+              content is wildly asymmetric: "AED" is about 30px of text while
+              "Other eligible business payment" is about 243px, and an even
+              split gave the payment type roughly 193px of usable width, so the
+              longest option was clipped mid word on the page's primary form at
+              every viewport. A 1:2 split gives the payment type the room its
+              own copy needs and leaves the currency more than enough for its
+              label. Select also truncates with an ellipsis as a safety net. */}
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
             {/* min-w-0 on each cell: without it a track can be sized by the
                 widest option in the select and push the panel wide at 320px. */}
             <div className="min-w-0">

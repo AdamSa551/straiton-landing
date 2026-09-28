@@ -24,13 +24,19 @@ Two more commands worth knowing:
 npm run verify
 ```
 
-Runs the type check, the content and token guard, and a production build, in that order. This is what to run before pushing.
+Runs four things in order: the type check, the content and token guard, the Tailwind class-emission check, and a production build. This is what to run before pushing. Run it with the dev server stopped, since a production build writes to the same `.next` directory the dev server is serving from.
 
 ```bash
 npm run check
 ```
 
 The content and token guard on its own. See section 5.
+
+```bash
+npm run check:classes
+```
+
+Compiles the real Tailwind config over the real source and confirms every class in the codebase actually emits CSS. Worth its own command because Tailwind fails silently: a class that does not resolve renders unstyled with no warning.
 
 Requires Node 18.17 or newer. No environment variables, no external services, no accounts.
 

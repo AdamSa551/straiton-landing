@@ -1,5 +1,9 @@
+'use client'
+
+import { Button } from '@/components/ui/Button'
 import { Section, SectionHeading } from '@/components/ui/Section'
 import { SpecTable } from '@/components/ui/SpecTable'
+import { goToAssessment } from '@/lib/assessment'
 import { landing, sectionIds } from '@/content/landing'
 
 /**
@@ -47,12 +51,32 @@ export default function S05Spec(): JSX.Element {
           own paragraph to --measure (620px), so the cap here is the narrower
           of the two and the sub wraps at 480.
         */}
-        <SectionHeading
-          eyebrow={spec.eyebrow}
-          heading={spec.h2}
-          sub={spec.sub}
-          className="min-w-0 max-w-[480px]"
-        />
+        <div className="flex min-w-0 max-w-[480px] flex-col gap-block">
+          <SectionHeading eyebrow={spec.eyebrow} heading={spec.h2} sub={spec.sub} />
+
+          {/*
+            The page's single conversion event is the hero form, and between
+            S04 and S11 there were six consecutive sections with no inline
+            route back to it: 7,572px at 390px wide, which is 51% of the page
+            and about nine phone screens. The hamburger is always visible, so
+            the form was never unreachable, but it was never visible either.
+
+            This is the right section to break that run. It sits in the middle
+            of it, and a reader who has just read the full specification,
+            including the three parameters we say are not fixed yet, is at the
+            point of deciding. It also fills the left column, which otherwise
+            ran several hundred pixels short of the table beside it.
+
+            S05 carries no other primary, so the one-primary-per-viewport rule
+            in design system 5.1 still holds.
+          */}
+          <div className="flex flex-col items-start gap-3">
+            <Button variant="primary" size="lg" withArrow onClick={goToAssessment}>
+              {landing.hero.primaryCta}
+            </Button>
+            <p className="text-caption text-text-muted">{landing.hero.panel.submitHelper}</p>
+          </div>
+        </div>
 
         {/* ----------------------------------------------------------- right */}
         {/*
