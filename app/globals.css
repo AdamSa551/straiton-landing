@@ -1,0 +1,339 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   STRAITON DESIGN TOKENS
+   --------------------------------------------------------------------------
+   Single source of truth for every colour, type role, spacing step, radius,
+   shadow and motion value on the page. Change a value here and it changes
+   everywhere, including the Tailwind class names that reference it.
+
+   Tailwind maps these in `tailwind.config.ts`. Components reference Tailwind
+   classes bound to these tokens, never raw values, and never a bare hex.
+
+   Provenance: STRAITON-DESIGN-SYSTEM.md section 4, with the five measured
+   corrections from design-handoff/01-FOUNDATIONS.md section 9 applied. Each
+   corrected or added token is marked inline with its flag number and the
+   measured contrast ratio that justifies it.
+   ========================================================================== */
+
+:root {
+  /* ---------------------------------------------------------------- colour */
+
+  /* Ink. Dark surfaces and primary text on light. */
+  --ink-900: #0b2733; /* dark section ground, footer, text-primary  15.5:1 on white */
+  --ink-800: #113240; /* dark card fill, elevated dark surface */
+  --ink-700: #1b4250; /* dark card border, dark divider */
+  --ink-600: #2c5867; /* dark UI stroke, decorative only           2.0:1 on ink-900 */
+  --ink-500: #457785; /* FLAG 03 new. Meaningful strokes on ink    3.1:1 on ink-900 */
+
+  /* Brand. */
+  --brand-800: #064b3f; /* FLAG 03 new. primary pressed on light  10.1:1 w/ white */
+  --brand-700: #085f4f; /* primary hover on light, link hover      7.6:1 w/ white */
+  --brand-600: #0b7f68; /* primary fill, links, eyebrow on light   4.9:1 w/ white */
+  --brand-500: #12a98a; /* accent fill, icon tint, primary hover on dark */
+  --brand-600-rgb: 11 127 104; /* for the focus ring alpha composite */
+  --brand-400: #2ed3a7; /* primary fill on dark, eyebrow on dark   8.1:1 w/ ink-900 */
+  --brand-100: #dff3ed; /* tinted table row, soft chip fill       13.9:1 w/ ink-900 */
+  --accent-line: #35d07a; /* decorative footer edge ONLY. Never text, never state */
+
+  /* Neutral. */
+  --canvas: #ffffff;
+  --surface-subtle: #f5f8f8; /* alternating section ground, field fill */
+  --surface-muted: #edf2f2; /* chip and tag fill, inactive states */
+  --border: #dce5e6; /* decorative hairline: cards, table rows, dividers */
+  --border-strong: #c3d2d5; /* hover border, secondary button border on light */
+  --border-field: #7f9499; /* FLAG 03 new. Field boundary            3.2:1 on white */
+  --text-primary: #0b2733; /*                                       15.5:1 on white */
+  --text-secondary: #4a6470; /* also tbc-chip text, FLAG 05   6.3:1 white / 5.6:1 muted */
+  --text-muted: #5e757f; /* lightest permitted on white   4.9:1 white / 4.5:1 subtle */
+
+  /* On dark. */
+  --on-dark-primary: #ffffff; /*                                    15.5:1 on ink-900 */
+  --on-dark-secondary: #a8bfc7; /* also captions on ink-800, FLAG 05  8.1 / 7.0:1 */
+  --on-dark-muted: #7e98a2; /* ink-900 ONLY. Fails on ink-800, FLAG 05     5.1:1 */
+
+  /* Status. */
+  --status-pilot: #8f5109; /* FLAG 01 darkened from #B4690E (3.9:1)  5.7:1 on its bg */
+  --status-pilot-bg: #fdf3e4;
+  --status-info: #1b6e9e; /*                                         5.6:1 on white */
+  --status-success: #0b7f68; /*                                      4.9:1 on white */
+  --status-error: #b42318; /* FLAG 04 measures 6.6:1, not the stated 4.9:1 */
+  --status-error-bg: #fef3f2;
+
+  /* ------------------------------------------------------------ typography */
+
+  /* The `*-loaded` variables come from next/font in `app/layout.tsx`, which
+     self-hosts each family. The literal names stay as the fallback so the
+     stack still resolves if a font fails to load. */
+  --font-display: var(--font-display-loaded), "Inter Tight", "Inter", -apple-system,
+    "Segoe UI", sans-serif;
+  --font-body: var(--font-body-loaded), "Inter", -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-mono-loaded), "IBM Plex Mono", ui-monospace, "SF Mono", monospace;
+
+  /* Sizes interpolate between the mobile and desktop anchors in the scale.
+     Two floors sit deliberately below their stated mobile size:
+       --t-display  38px not 40px, so the h1 does not orphan a word at 390px
+       --t-h1       30px not 34px, so the centred S11 heading holds at 320px */
+  --t-display: clamp(38px, 4.4vw, 64px);
+  --t-h1: clamp(30px, 3.6vw, 52px);
+  --t-h2: clamp(28px, 3vw, 40px);
+  --t-h3: clamp(22px, 2vw, 28px);
+  --t-h4: clamp(18px, 1.6vw, 20px);
+  --t-body-lg: clamp(17px, 1.25vw, 18px);
+  --t-body: 16px;
+  --t-body-sm: 14px;
+  --t-caption: 13px;
+  --t-eyebrow: 12px;
+  --t-datalabel: 11px;
+  --t-button: 15px;
+
+  /* Large headings are weight 400. Authority comes from size and negative
+     tracking, not weight. Do not let a utility default bump these. */
+  --lh-display: 1.04;
+  --lh-h1: 1.08;
+  --lh-h2: 1.12;
+  --lh-h3: 1.22;
+  --lh-h4: 1.3;
+  --lh-body: 1.6;
+  --lh-body-sm: 1.55;
+  --lh-caption: 1.5;
+  --lh-eyebrow: 1.2;
+  --lh-datalabel: 1.3;
+
+  --tr-display: -0.022em;
+  --tr-h1: -0.02em;
+  --tr-h2: -0.018em;
+  --tr-h3: -0.012em;
+  --tr-h4: -0.005em;
+  --tr-eyebrow: 0.12em;
+  --tr-datalabel: 0.08em;
+  --tr-button: 0.005em;
+
+  /* --------------------------------------------------------------- spacing */
+
+  --space-section-y: clamp(64px, 8vw, 120px);
+  --space-section-y-tight: clamp(48px, 5vw, 80px);
+  --space-block: clamp(32px, 4vw, 48px);
+  --space-card-pad: clamp(20px, 2vw, 28px);
+  --space-stack-md: clamp(16px, 1.5vw, 20px);
+  --space-stack-sm: 12px;
+
+  /* ---------------------------------------------------------------- layout */
+
+  --container-max: 1440px;
+  --content-max: 1200px;
+  --container-pad: clamp(20px, 8.33vw, 120px); /* 120px margins at 1440 */
+  --measure: 620px; /* body copy never exceeds ~68 characters */
+  --nav-h: 76px;
+  --nav-h-compact: 64px;
+  --scroll-offset: 84px; /* compact nav 64 + 20 */
+
+  /* ---------------------------------------------------------------- radius */
+
+  --radius-sm: 6px; /* fields, chips, tags, small badges */
+  --radius-md: 10px; /* buttons, small cards, icon buttons */
+  --radius-lg: 14px; /* feature, fact, step cards, tables, guides card */
+  --radius-xl: 20px; /* hero form panel, workspace illustration frame */
+  --radius-pill: 999px; /* eligibility chips, topic chips, status badge */
+
+  /* ------------------------------------------------------------- elevation */
+
+  /* Only two elements on the page may use --shadow-float: the hero
+     assessment panel and the workspace illustration frame. */
+  --shadow-card: 0 1px 2px rgba(11, 39, 51, 0.04), 0 8px 24px rgba(11, 39, 51, 0.06);
+  --shadow-float: 0 2px 4px rgba(11, 39, 51, 0.06), 0 16px 40px rgba(11, 39, 51, 0.1);
+  --shadow-focus: 0 0 0 3px rgba(11, 127, 104, 0.28);
+  --shadow-focus-dark: 0 0 0 3px rgba(46, 211, 167, 0.45); /* FLAG 02 new */
+
+  /* Pressed state for `primary` on an ink ground. A third darkening step, which
+     design system 5.1 literally asks for, drops the --ink-900 label below 4.5:1
+     against its own fill, so pressed is signalled with an inset instead.
+     Documented deviation, needs the same sign-off as the five flags. */
+  --shadow-pressed-dark: inset 0 2px 4px rgba(11, 39, 51, 0.35);
+
+  /* ---------------------------------------------------------------- motion */
+
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-fast: 140ms; /* hover, focus, colour change */
+  --dur-base: 200ms; /* disclosure, chevron, chip toggle */
+  --dur-slow: 320ms; /* section reveal, not implemented */
+}
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--canvas);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: var(--t-body);
+    line-height: var(--lh-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Headings inherit their role class. Reset the browser's own sizing and
+     weight so a heading never renders bold by accident. */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0;
+    font-weight: inherit;
+    font-size: inherit;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  ul,
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Sections are anchor targets. Keep the sticky nav clear of the heading.
+     `footer[id]` is included because S12 is a <footer>, not a <section>, and
+     would otherwise be the one anchor the offset missed. */
+  section[id],
+  footer[id],
+  div[id] {
+    scroll-margin-top: var(--scroll-offset);
+  }
+
+  /* Headings balance, paragraphs avoid orphans. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Backstop. If a component ever misses its focus treatment, something still
+     shows. outline is never removed without a replacement. */
+  :focus-visible {
+    outline: 2px solid var(--brand-600);
+    outline-offset: 2px;
+  }
+
+  /* Long email addresses must not push the page wide at 320px. */
+  a[href^="mailto:"] {
+    overflow-wrap: anywhere;
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   --------------------------------------------------------------------------
+   Durations collapse, transform-based movement is removed, programmatic
+   scrolling switches from smooth to auto. The post-scroll focus delay is
+   also zeroed in JS, keyed off the same query.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   COMPONENT-LEVEL PRIMITIVES
+   --------------------------------------------------------------------------
+   Kept here rather than inline because each is a single shared behaviour
+   that several components reuse.
+   ========================================================================== */
+
+@layer components {
+  /* The page container. Produces a 1200px content box with 120px margins at
+     exactly 1440px, and stays fluid either side of it. */
+  .container-page {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--container-pad);
+  }
+
+  /* Submit button spinner. 18px circle, track at 35% of the label colour. */
+  .spinner {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    opacity: 0.9;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Disclosure panel height animation. Only height and the chevron animate.
+     Answer text does not fade. */
+  .disclosure-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows var(--dur-base) var(--ease-out);
+  }
+
+  .disclosure-panel[data-open="true"] {
+    grid-template-rows: 1fr;
+  }
+
+  /* The panel stays mounted so its height can animate, which means `overflow`
+     alone would only hide the answer VISUALLY: it would stay in the
+     accessibility tree and in the tab order, contradicting the
+     `aria-expanded="false"` on the trigger. A screen reader user would hear
+     every answer at once.
+
+     `visibility: hidden` removes it from both, and unlike `display: none` it
+     still allows the height transition. The zero-duration visibility
+     transition is delayed by the panel's own duration so it flips to hidden
+     only after the row has finished collapsing, and flips to visible
+     immediately on open. */
+  .disclosure-panel > div {
+    overflow: hidden;
+    visibility: hidden;
+    transition: visibility 0s linear var(--dur-base);
+  }
+
+  .disclosure-panel[data-open="true"] > div {
+    visibility: visible;
+    transition-delay: 0s;
+  }
+}
