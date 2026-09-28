@@ -60,6 +60,7 @@ The result: **zero axe violations** across WCAG 2.0 A and AA, 2.1 A and AA, and 
 - **The assessment form is three fields.** Adding a work email and company name in front of the conversion event contradicts "No signup required" and "No account needed", both of which I considered load bearing. Contact details are collected by the manager afterwards.
 - **`Sign in` is not in the navigation**, because there is no sign in on this page. A nav item should resolve to something real or be removed.
 - **The footer has three columns, not four.** About, Partners and Contact have no destination on a single page build.
+- **One approved line was reworded, and only one.** The amount field's floor message read "Enter an amount above 1,000.", asserting a minimum that the specification section lists as `To be confirmed`. On a page whose argument is that we say what is not fixed yet, that contradiction sat on the one field the reader types into. It now reads "Enter a larger amount so we can assess it." The validation itself is unchanged.
 
 ---
 

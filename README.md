@@ -204,6 +204,7 @@ Targeting WCAG 2.1 AA. The specifics worth calling out:
 - `Sign in` is not in the nav. There is no sign-in on this page, and 5.7 requires a nav item to resolve or be removed.
 - The footer has three columns, not the four in the approved copy. About, Partners and Contact have no destination on a single-page build.
 - Spec tables stack on mobile rather than scrolling inside a container. Design system 4.4 says scroll with an edge fade; the later responsive checklist says stack. The checklist is the scored document.
+- **The amount field's floor message was reworded.** The approved copy reads "Enter an amount above 1,000.", which asserts a minimum, while S05 lists "Minimum / maximum amount" as `To be confirmed`. The page contradicted itself on the one field the reader types into, and on exactly the point it is built around. It now reads "Enter a larger amount so we can assess it." The validation floor is unchanged; only the wording moves from a product limit to an input rule.
 
 **What I would do with more time.**
 - **Automated accessibility and visual regression in CI.** `npm run check` is static analysis over source. It cannot catch a computed contrast failure or a focus order problem. An axe pass against the rendered page plus Playwright snapshots at 320, 390, 768, 1024 and 1440 would close that gap, and the responsive claims here would then be enforced rather than asserted.

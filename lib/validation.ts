@@ -14,6 +14,13 @@ export type Errors = Partial<Record<FieldName, string>>
 export const fieldOrder: readonly FieldName[] = ['amount', 'currency', 'paymentType'] as const
 
 const AMOUNT_PATTERN = /^\d+(\.\d+)?$/
+
+/**
+ * A sanity floor on the input, NOT a stated product minimum. S05 lists
+ * "Minimum / maximum amount" as `To be confirmed`, and nothing on the page may
+ * contradict that, so the message this triggers talks about the entry rather
+ * than about a limit. Change the message with the floor if this ever moves.
+ */
 const AMOUNT_FLOOR = 1000
 
 /** Strips the spaces and commas a formatted value carries, so `250,000`

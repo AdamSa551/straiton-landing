@@ -559,7 +559,18 @@ export const landing = {
     errors: {
       amountEmpty: 'Enter the payment amount.',
       amountNotNumeric: 'Enter a number, without currency symbols.',
-      amountTooLow: 'Enter an amount above 1,000.',
+      /**
+       * Departs from the approved copy, which reads "Enter an amount above
+       * 1,000." That line asserts a minimum, while S05 lists "Minimum /
+       * maximum amount" as `To be confirmed`, so the page contradicted itself
+       * on the one field the reader types into, and did it on the exact point
+       * the whole page is built around: saying what is not fixed yet.
+       *
+       * The guard still runs at the same floor. Only the wording changes, from
+       * a product limit to an input rule, so nothing states a minimum that the
+       * specification says is unconfirmed.
+       */
+      amountTooLow: 'Enter a larger amount so we can assess it.',
       currencyEmpty: 'Choose a funding currency.',
       paymentTypeEmpty: 'Choose a payment type.',
     },
