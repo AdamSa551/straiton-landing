@@ -51,7 +51,15 @@ export default function S07Process(): JSX.Element {
             the cap the handoff pins on this heading. */}
         <SectionHeading eyebrow={flow.eyebrow} heading={flow.h2} headingMaxCh={22} />
 
-        <div className="grid grid-cols-1 table:grid-cols-[repeat(auto-fit,minmax(min(100%,240px),1fr))] table:gap-5 process:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] process:items-stretch process:gap-0">
+        {/* Exactly two columns between 620 and 1100, not an auto-fit track list.
+            The handoff quotes both "a plain 2x2 grid" and an auto-fit formula
+            with a 240px floor, and the two disagree: auto-fit admits a third
+            track once the content box passes 760px, which is a viewport of
+            roughly 910px, and four steps then render as three plus an orphan.
+            A numbered sequence reads worse that way, and the responsive
+            checklist asks for the sequence to stay legible, so the stated
+            intent wins over the stated formula. */}
+        <div className="grid grid-cols-1 table:grid-cols-2 table:gap-5 process:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] process:items-stretch process:gap-0">
           {flow.steps.map((step, i) => {
             const isLast = i === lastStep
 
