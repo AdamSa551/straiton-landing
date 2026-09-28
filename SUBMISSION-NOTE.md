@@ -1,6 +1,6 @@
 # Straiton, web designer assignment
 
-**Live preview:** _[Vercel URL]_
+**Live preview:** https://straiton-landing-seven.vercel.app
 **Source:** https://github.com/AdamSa551/straiton-landing
 **Approximate time spent:** _[fill in]_
 
