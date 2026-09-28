@@ -38,8 +38,8 @@ html,body{ margin:0; padding:0; background:var(--canvas); }
 
 body{
   font-family:var(--font-body);
-  font-size:10.2pt;
-  line-height:1.62;
+  font-size:10pt;
+  line-height:1.6;
   color:var(--text-primary);
   -webkit-print-color-adjust:exact;
   print-color-adjust:exact;
@@ -49,27 +49,21 @@ body{
 /* A4 is 210mm. 18mm gutters leave a ~174mm measure, which at 10.2pt lands
    near the 68 character cap the design system sets for body copy. */
 .sheet{ padding:0 18mm; }
+.rule + .sheet{ padding-top:9mm; }
 
 /* ------------------------------------------------------------------ cover */
 
 .masthead{
   background:var(--ink-900);
   color:var(--on-dark-primary);
-  padding:26mm 18mm 22mm;
-  /* A full A4 page, so the cover is a cover. Content opens on page two. */
-  min-height:297mm;
-  display:flex; flex-direction:column;
-  break-after:page;
+  padding:15mm 18mm 12mm;
 }
-/* Pushes the meta block to the foot of the cover. */
-.masthead .meta{ margin-top:auto; }
 
 .wordmark{
   display:flex; align-items:center; gap:7px;
   font-family:var(--font-display); font-size:16pt; font-weight:600;
-  letter-spacing:-0.01em; line-height:1;
+  letter-spacing:-0.01em; line-height:1; margin-bottom:11mm;
 }
-.wordmark{ margin-bottom:52mm; }
 .wordmark .dot{ width:6px; height:6px; border-radius:999px; background:var(--brand-500); }
 
 .eyebrow{
@@ -78,13 +72,13 @@ body{
 }
 
 .masthead h1{
-  font-family:var(--font-display); font-weight:400; font-size:27pt;
-  line-height:1.08; letter-spacing:-0.02em; margin:0 0 7mm; max-width:20ch;
+  font-family:var(--font-display); font-weight:400; font-size:24pt;
+  line-height:1.08; letter-spacing:-0.02em; margin:0 0 6mm; max-width:22ch;
 }
 
 .masthead .lede{
-  font-size:10.6pt; line-height:1.6; color:var(--on-dark-secondary);
-  max-width:62ch; margin:0 0 11mm;
+  font-size:10.2pt; line-height:1.6; color:var(--on-dark-secondary);
+  max-width:66ch; margin:0 0 9mm;
 }
 
 /* meta rows, the spec-table treatment on ink */
@@ -101,16 +95,22 @@ body{
 .meta .v{ font-size:9.6pt; color:var(--on-dark-primary); }
 /* URLs may break anywhere; prose must not, or a word splits mid syllable. */
 .meta .v.mono{ word-break:break-all; }
+.meta a{ color:var(--brand-400); text-decoration:none; border-bottom:1px solid var(--ink-600); }
 .meta .v.mono{ font-family:var(--font-mono); font-size:9pt; }
 
 /* --------------------------------------------------------------- sections */
 
-section{ margin-bottom:10mm; break-inside:avoid-page; }
+section{ margin-bottom:7mm; }
+.sheet > section:first-child .sec-head{ border-top:none; padding-top:0; }
+/* No trailing gap before the end mark. */
+.sheet:last-of-type > section:last-child{ margin-bottom:0; }
 
 .sec-head{
   display:flex; align-items:baseline; gap:5mm;
   border-top:2px solid var(--ink-900);
   padding-top:3.5mm; margin-bottom:5mm;
+  /* A heading must never be the last thing on a page. */
+  break-after:avoid; break-inside:avoid;
 }
 .sec-num{
   font-family:var(--font-mono); font-size:8.4pt; font-weight:500;
@@ -121,7 +121,7 @@ section{ margin-bottom:10mm; break-inside:avoid-page; }
   line-height:1.12; letter-spacing:-0.018em; margin:0; color:var(--text-primary);
 }
 
-p{ margin:0 0 3.6mm; max-width:74ch; }
+p{ margin:0 0 3.3mm; max-width:74ch; orphans:2; widows:2; }
 p:last-child{ margin-bottom:0; }
 
 strong{ font-weight:600; color:var(--text-primary); }
@@ -139,14 +139,15 @@ code{
 .pull{
   border-left:3px solid var(--brand-500);
   padding:1mm 0 1mm 5mm;
-  margin:5mm 0;
+  margin:4.5mm 0;
+  break-inside:avoid;
   font-family:var(--font-display); font-weight:400;
   font-size:13pt; line-height:1.3; letter-spacing:-0.012em;
   color:var(--text-primary); max-width:58ch;
 }
 
 /* Stat row, for the figures that carry the accessibility argument. */
-.stats{ display:flex; gap:4mm; margin:5mm 0; break-inside:avoid; }
+.stats{ display:flex; gap:4mm; margin:4.5mm 0; break-inside:avoid; }
 .stat{
   flex:1; border:1px solid var(--border); border-radius:10px;
   padding:4mm 4.5mm; background:var(--surface-subtle);
@@ -162,7 +163,7 @@ code{
 /* Assumption / next-step lists. */
 ul{ margin:0; padding:0; list-style:none; }
 li{
-  position:relative; padding-left:6mm; margin-bottom:3.2mm;
+  position:relative; padding-left:6mm; margin-bottom:2.9mm;
   max-width:74ch; break-inside:avoid;
 }
 li:last-child{ margin-bottom:0; }
@@ -177,18 +178,13 @@ li.next::before{ background:var(--surface-muted); border-color:var(--border-stro
 .cmd{
   font-family:var(--font-mono); font-size:8.8pt;
   background:var(--ink-900); color:var(--brand-400);
-  padding:3.2mm 4mm; border-radius:8px; margin:4mm 0;
+  padding:3mm 4mm; border-radius:8px; margin:3.5mm 0;
   break-inside:avoid;
 }
 
 /* Closing band, continuous with the accent rule, as the page's footer is. */
-.closing{
-  background:var(--ink-900); color:var(--on-dark-secondary);
-  padding:9mm 18mm; margin:12mm 0 0;
-  font-size:9.4pt; line-height:1.6;
-}
-.closing strong{ color:var(--on-dark-primary); }
-.closing .cmd{ background:var(--ink-800); margin:4mm 0 0; }
+/* Marks the cover-to-content transition, on the same edge treatment the
+   page's own footer uses. */
 .rule{ height:3px; background:var(--accent-line); }
 
 /* Page furniture. Suppressed on the first page, which carries the masthead. */
@@ -209,11 +205,12 @@ li.next::before{ background:var(--surface-muted); border-color:var(--border-stro
   </p>
 
   <div class="meta">
-    <div class="row"><div class="k">Live preview</div><div class="v mono">straiton-landing-seven.vercel.app</div></div>
-    <div class="row"><div class="k">Source</div><div class="v mono">github.com/AdamSa551/straiton-landing</div></div>
+    <div class="row"><div class="k">Live preview</div><div class="v mono"><a href="https://straiton-landing-seven.vercel.app">straiton-landing-seven.vercel.app</a></div></div>
+    <div class="row"><div class="k">Source</div><div class="v mono"><a href="https://github.com/AdamSa551/straiton-landing">github.com/AdamSa551/straiton-landing</a></div></div>
     <div class="row"><div class="k">Time spent</div><div class="v">Approximately 12 hours, across design system, copy and narrative, build, and accessibility work</div></div>
   </div>
 </header>
+<div class="rule"></div>
 
 <div class="sheet">
 
@@ -407,22 +404,28 @@ li.next::before{ background:var(--surface-muted); border-color:var(--border-stro
 </div>
 
 <!-- ============================================================ closing -->
-<div class="closing">
-  <p style="margin-bottom:3.6mm">
-    <strong>Notes on the build.</strong> No backend, no authentication, no database, no
-    payment processing. The assessment form runs real validation, waits a simulated delay,
-    then resolves to a local confirmation state carrying a <strong>DEMO ONLY</strong> badge.
-    No network request is made and nothing leaves the browser.
-  </p>
-  <div class="cmd">npm install &amp;&amp; npm run dev</div>
-  <p style="margin:4mm 0 0">
-    <strong>npm run check</strong> runs the content and token guards.
-    <strong>npm run check:classes</strong> confirms every Tailwind class in the source
-    actually emits CSS, which matters because Tailwind fails silently. The README covers the
-    token system, the component map, what is demo only, and known gaps.
-  </p>
+
+<div class="sheet">
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">06</span>
+      <h2>Notes on the build</h2>
+    </div>
+    <p>
+      No backend, no authentication, no database, no payment processing. The assessment form
+      runs real validation, waits a simulated delay, then resolves to a local confirmation
+      state carrying a <strong>DEMO ONLY</strong> badge. No network request is made and
+      nothing leaves the browser.
+    </p>
+    <div class="cmd">npm install &amp;&amp; npm run dev</div>
+    <p>
+      <strong>npm run check</strong> runs the content and token guards.
+      <strong>npm run check:classes</strong> confirms every Tailwind class emits CSS, which
+      matters because Tailwind fails silently. The README covers the token system, the
+      component map and the known gaps.
+    </p>
+  </section>
 </div>
-<div class="rule"></div>
 
 </body>
 </html>

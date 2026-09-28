@@ -1,6 +1,7 @@
 # Submission note, print version
 
 `Straiton-Submission-Note.pdf` is the rationale note as a designed A4 document,
+three pages, with the live and source URLs as clickable annotations.
 for attaching to the LinkedIn reply. Its content is the same as
 `../SUBMISSION-NOTE.md`, which stays the plain text source of truth.
 
